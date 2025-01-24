@@ -1,0 +1,14 @@
+﻿- Alle drei Templatedateien kopieren (0TemplateForm.cs, 0TemplateForm.Designer.cs, 0TemplateForm.resx)
+
+- Auf DosostaApp rechtskliken -> Einfügen
+  Es wird Fehlermeldungen geben, keine Panik.
+
+- Neue 0TemplateForm - Kopieren.cs Datei rechtsklicken und umbenennen.
+
+- Auf *kopiertedatei*.cs rechtsklicken -> Code anzeigen
+
+- in *kopiertedatei*.cs: "partial class _0TemplateForm" und "public _0TemplateForm",
+ "_0TemplateForm" jeweils exakt genauso umbenennen wie die Datei! Speichern
+
+- in *kopiertedatei*.Designer.cs: "partial class _0TemplateForm",
+ "_0TemplateForm" exakt genauso umbenennen wie die Datei!
