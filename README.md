@@ -1,0 +1,2 @@
+# DoSoStaBibliothek
+Ein Bibliotheksmanagementsystem
