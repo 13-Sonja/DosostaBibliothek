@@ -1,4 +1,5 @@
-﻿- Alle drei Templatedateien kopieren (0TemplateForm.cs, 0TemplateForm.Designer.cs, 0TemplateForm.resx)
+﻿Forms kopieren:
+- Alle drei Templatedateien kopieren (0TemplateForm.cs, 0TemplateForm.Designer.cs, 0TemplateForm.resx)
 
 - Auf DosostaApp rechtskliken -> Einfügen
   Es wird Fehlermeldungen geben, keine Panik.
@@ -12,3 +13,9 @@
 
 - in *kopiertedatei*.Designer.cs: "partial class _0TemplateForm",
  "_0TemplateForm" exakt genauso umbenennen wie die Datei!
+
+
+ Hintergrundbild einfügen:
+ -Form auswählen, bei BackgroundImage auf drei Punkte klicken
+
+ - in neuem Fenster Projektressourcendatei auswählen und bg4 benutzen oder neues Bild importieren

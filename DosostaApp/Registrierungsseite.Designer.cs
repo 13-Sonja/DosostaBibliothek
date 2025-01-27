@@ -28,14 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            zurückButton = new Button();
             SuspendLayout();
+            // 
+            // zurückButton
+            // 
+            zurückButton.BackColor = Color.FromArgb(195, 214, 199);
+            zurückButton.Location = new Point(300, 235);
+            zurückButton.Name = "zurückButton";
+            zurückButton.Size = new Size(247, 78);
+            zurückButton.TabIndex = 0;
+            zurückButton.Text = "Zurück";
+            zurückButton.UseVisualStyleBackColor = false;
+            //zurückButton.Click += Utils.zurückButton_Click();
             // 
             // Registrierungsseite
             // 
             AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(255, 244, 233);
+            BackColor = Color.FromArgb(255, 252, 249);
             ClientSize = new Size(914, 510);
+            Controls.Add(zurückButton);
             Font = new Font("Cascadia Mono", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Name = "Registrierungsseite";
             Text = "Dososta Bibliothek";
@@ -43,5 +56,7 @@
         }
 
         #endregion
+
+        private Button zurückButton;
     }
 }
