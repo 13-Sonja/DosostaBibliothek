@@ -12,6 +12,9 @@ namespace DosostaApp
 {
     public partial class KdInfoseite : Form
     {
+        private string vorname = "Max";
+        private string nachname = "Mustermann";
+        private string adresse = "Musterstraße 1";
         public KdInfoseite()
         {
             InitializeComponent();
