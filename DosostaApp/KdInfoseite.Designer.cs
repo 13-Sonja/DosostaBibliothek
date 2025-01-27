@@ -28,6 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            SuspendLayout();
+            // 
+            // KdInfoseite
+            // 
+            AutoScaleDimensions = new SizeF(8F, 17F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(255, 252, 249);
+            ClientSize = new Size(914, 510);
+            Font = new Font("Cascadia Mono", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Name = "KdInfoseite";
+            Text = "Dososta Bibliothek";
+            ResumeLayout(false);
         }
 
         #endregion
