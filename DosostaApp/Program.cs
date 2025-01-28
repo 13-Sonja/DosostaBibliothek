@@ -18,8 +18,10 @@ namespace DosostaApp
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            new Registrierungsseite().Show();
-            Application.Run();
+           // new MaAdminseite().Show();
+
+            Application.Run(new UserVerwaltung ());
+
         }
     }
 }
