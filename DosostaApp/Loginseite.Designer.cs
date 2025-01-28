@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             loginBasisGroupbox = new GroupBox();
-            willkommenLabel = new Label();
-            loginGroupbox = new GroupBox();
-            LoginButton = new Button();
-            vornamenLabel = new Label();
-            nachnameLabel = new Label();
-            passwortLabel = new Label();
-            vornameTextbox = new TextBox();
-            nachnameTextbox = new TextBox();
-            passwortTextbox = new TextBox();
             zurückButton = new Button();
+            LoginButton = new Button();
+            loginGroupbox = new GroupBox();
+            passwortTextbox = new TextBox();
+            nachnameTextbox = new TextBox();
+            vornameTextbox = new TextBox();
+            passwortLabel = new Label();
+            nachnameLabel = new Label();
+            vornamenLabel = new Label();
+            willkommenLabel = new Label();
             loginBasisGroupbox.SuspendLayout();
             loginGroupbox.SuspendLayout();
             SuspendLayout();
@@ -56,15 +56,31 @@
             loginBasisGroupbox.TabIndex = 1;
             loginBasisGroupbox.TabStop = false;
             // 
-            // willkommenLabel
+            // zurückButton
             // 
-            willkommenLabel.AutoSize = true;
-            willkommenLabel.Font = new Font("Cascadia Code", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            willkommenLabel.Location = new Point(120, 19);
-            willkommenLabel.Name = "willkommenLabel";
-            willkommenLabel.Size = new Size(335, 63);
-            willkommenLabel.TabIndex = 1;
-            willkommenLabel.Text = "Willkommen!";
+            zurückButton.BackColor = Color.FromArgb(143, 148, 171);
+            zurückButton.Font = new Font("Cascadia Mono", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            zurückButton.ForeColor = Color.Black;
+            zurückButton.Location = new Point(105, 314);
+            zurückButton.Name = "zurückButton";
+            zurückButton.Size = new Size(148, 45);
+            zurückButton.TabIndex = 4;
+            zurückButton.Text = "Zurück";
+            zurückButton.UseVisualStyleBackColor = false;
+            zurückButton.Click += zurückButton_Click;
+            // 
+            // LoginButton
+            // 
+            LoginButton.BackColor = Color.FromArgb(154, 189, 162);
+            LoginButton.Font = new Font("Cascadia Mono", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LoginButton.ForeColor = Color.Black;
+            LoginButton.Location = new Point(307, 314);
+            LoginButton.Name = "LoginButton";
+            LoginButton.Size = new Size(148, 45);
+            LoginButton.TabIndex = 3;
+            LoginButton.Text = "Login";
+            LoginButton.UseVisualStyleBackColor = false;
+            LoginButton.Click += LoginButton_Click;
             // 
             // loginGroupbox
             // 
@@ -82,37 +98,29 @@
             loginGroupbox.TabStop = false;
             loginGroupbox.Text = "Login";
             // 
-            // LoginButton
+            // passwortTextbox
             // 
-            LoginButton.BackColor = Color.FromArgb(154, 189, 162);
-            LoginButton.Font = new Font("Cascadia Mono", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LoginButton.ForeColor = Color.Black;
-            LoginButton.Location = new Point(307, 314);
-            LoginButton.Name = "LoginButton";
-            LoginButton.Size = new Size(148, 45);
-            LoginButton.TabIndex = 3;
-            LoginButton.Text = "Login";
-            LoginButton.UseVisualStyleBackColor = false;
+            passwortTextbox.Font = new Font("Cascadia Mono", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            passwortTextbox.Location = new Point(124, 133);
+            passwortTextbox.Name = "passwortTextbox";
+            passwortTextbox.Size = new Size(211, 30);
+            passwortTextbox.TabIndex = 5;
             // 
-            // vornamenLabel
+            // nachnameTextbox
             // 
-            vornamenLabel.AutoSize = true;
-            vornamenLabel.Font = new Font("Cascadia Mono", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            vornamenLabel.Location = new Point(18, 45);
-            vornamenLabel.Name = "vornamenLabel";
-            vornamenLabel.Size = new Size(89, 25);
-            vornamenLabel.TabIndex = 0;
-            vornamenLabel.Text = "Vorname";
+            nachnameTextbox.Font = new Font("Cascadia Mono", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            nachnameTextbox.Location = new Point(122, 85);
+            nachnameTextbox.Name = "nachnameTextbox";
+            nachnameTextbox.Size = new Size(211, 30);
+            nachnameTextbox.TabIndex = 4;
             // 
-            // nachnameLabel
+            // vornameTextbox
             // 
-            nachnameLabel.AutoSize = true;
-            nachnameLabel.Font = new Font("Cascadia Mono", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            nachnameLabel.Location = new Point(18, 90);
-            nachnameLabel.Name = "nachnameLabel";
-            nachnameLabel.Size = new Size(100, 25);
-            nachnameLabel.TabIndex = 1;
-            nachnameLabel.Text = "Nachname";
+            vornameTextbox.Font = new Font("Cascadia Mono", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            vornameTextbox.Location = new Point(122, 40);
+            vornameTextbox.Name = "vornameTextbox";
+            vornameTextbox.Size = new Size(211, 30);
+            vornameTextbox.TabIndex = 3;
             // 
             // passwortLabel
             // 
@@ -124,42 +132,35 @@
             passwortLabel.TabIndex = 2;
             passwortLabel.Text = "Passwort";
             // 
-            // vornameTextbox
+            // nachnameLabel
             // 
-            vornameTextbox.Font = new Font("Cascadia Mono", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            vornameTextbox.Location = new Point(122, 40);
-            vornameTextbox.Name = "vornameTextbox";
-            vornameTextbox.Size = new Size(211, 30);
-            vornameTextbox.TabIndex = 3;
+            nachnameLabel.AutoSize = true;
+            nachnameLabel.Font = new Font("Cascadia Mono", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            nachnameLabel.Location = new Point(18, 90);
+            nachnameLabel.Name = "nachnameLabel";
+            nachnameLabel.Size = new Size(100, 25);
+            nachnameLabel.TabIndex = 1;
+            nachnameLabel.Text = "Nachname";
             // 
-            // nachnameTextbox
+            // vornamenLabel
             // 
-            nachnameTextbox.Font = new Font("Cascadia Mono", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            nachnameTextbox.Location = new Point(122, 85);
-            nachnameTextbox.Name = "nachnameTextbox";
-            nachnameTextbox.Size = new Size(211, 30);
-            nachnameTextbox.TabIndex = 4;
+            vornamenLabel.AutoSize = true;
+            vornamenLabel.Font = new Font("Cascadia Mono", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            vornamenLabel.Location = new Point(18, 45);
+            vornamenLabel.Name = "vornamenLabel";
+            vornamenLabel.Size = new Size(89, 25);
+            vornamenLabel.TabIndex = 0;
+            vornamenLabel.Text = "Vorname";
             // 
-            // passwortTextbox
+            // willkommenLabel
             // 
-            passwortTextbox.Font = new Font("Cascadia Mono", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            passwortTextbox.Location = new Point(124, 133);
-            passwortTextbox.Name = "passwortTextbox";
-            passwortTextbox.Size = new Size(211, 30);
-            passwortTextbox.TabIndex = 5;
-            // 
-            // zurückButton
-            // 
-            zurückButton.BackColor = Color.FromArgb(143, 148, 171);
-            zurückButton.Font = new Font("Cascadia Mono", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            zurückButton.ForeColor = Color.Black;
-            zurückButton.Location = new Point(105, 314);
-            zurückButton.Name = "zurückButton";
-            zurückButton.Size = new Size(148, 45);
-            zurückButton.TabIndex = 4;
-            zurückButton.Text = "Zurück";
-            zurückButton.UseVisualStyleBackColor = false;
-            zurückButton.Click += zurückButton_Click;
+            willkommenLabel.AutoSize = true;
+            willkommenLabel.Font = new Font("Cascadia Code", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            willkommenLabel.Location = new Point(120, 19);
+            willkommenLabel.Name = "willkommenLabel";
+            willkommenLabel.Size = new Size(335, 63);
+            willkommenLabel.TabIndex = 1;
+            willkommenLabel.Text = "Willkommen!";
             // 
             // Loginseite
             // 
