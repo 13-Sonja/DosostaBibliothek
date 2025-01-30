@@ -15,6 +15,7 @@ namespace DosostaApp
     public partial class Loginseite : Form
     {
         private int versuche = 5;
+        public Startseite RefToStart { get; set; }
         public Loginseite()
         {
             InitializeComponent();
@@ -22,28 +23,36 @@ namespace DosostaApp
 
         private void zurückButton_Click(object sender, EventArgs e)
         {
-            Startseite startseite = new Startseite();
-            startseite.Show();
+            this.RefToStart.Show();
             Close();
         }
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-            string? vorname = this.vornameTextbox.Text;
-            string? nachname = this.nachnameTextbox.Text;
-            string? passwort = this.passwortTextbox.Text;
-            bool loginErfolgreich = loginErfolg(vorname, nachname, passwort);
-            if (loginErfolgreich)
+            string? vorname = vornameTextbox.Text;
+            string? nachname = nachnameTextbox.Text;
+            string? passwort = passwortTextbox.Text;
+
+            (bool erfolg, string status) loginResultat = loginErfolg(vorname, nachname, passwort);
+            if (loginResultat.erfolg)
             {
                 Close();
-                KdBasisseite kdSeite = new KdBasisseite();
-                kdSeite.Show();
+                if (loginResultat.status == "Kunde")
+                {
+                    KdBasisseite kdSeite = new();
+                    kdSeite.Show();
+                }
+                else
+                {
+                    MaBasisseite maSeite = new();
+                    maSeite.Show();
+                }
             }
             else
                 return;
         }
 
-        private bool loginErfolg(string vorname, string nachname, string passwort)
+        private (bool, string) loginErfolg(string vorname, string nachname, string passwort)
         {
             Datenbank kunden = new Datenbank();
 
@@ -51,24 +60,30 @@ namespace DosostaApp
             {
                 string message = "Login nicht erfolgreich. Alle Felder müssen ausgefüllt sein.";
                 MessageBox.Show(message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
+                return (false, "error");
             }
             else if (versuche <= 0)
             {
                 string message = $"Zu viele Fehlversuche, Konto gesperrt. Wenden Sie sich an einen Mitarbeiter.";
                 MessageBox.Show(message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
+                return (false, "error");
             }
-            else if (kunden.CheckLogin(passwort))
-                //find and verify data
-                return true;
-            else if (!kunden.CheckLogin(passwort))
+            //bool test = kunden.CheckLoginSimple(vorname, nachname, passwort);
+            //MessageBox.Show(test.ToString());
+
+            (bool erfolg, string status, int kundenID) loginResultat = kunden.CheckLogin(vorname, nachname, passwort);
+            
+            if (loginResultat.erfolg)
+                return (loginResultat.erfolg, loginResultat.status);
+            else if (!loginResultat.erfolg)
             {
                 versuche--;
                 string message = $"Login nicht erfolgreich. Daten stimmen nicht überein. Weitere Versuche: {versuche}";
                 MessageBox.Show(message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return (false, "error");
             }
-            return false;
+
+            return (false, "error");
         }
     }
 }

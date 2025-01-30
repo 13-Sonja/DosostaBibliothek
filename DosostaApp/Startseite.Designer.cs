@@ -107,6 +107,7 @@
             Controls.Add(buttonGroupbox);
             Font = new Font("Cascadia Mono", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Name = "Startseite";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Dososta Bibliothek";
             buttonGroupbox.ResumeLayout(false);
             buttonGroupbox.PerformLayout();

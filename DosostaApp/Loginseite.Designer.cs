@@ -173,6 +173,7 @@
             Controls.Add(loginBasisGroupbox);
             Font = new Font("Cascadia Mono", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Name = "Loginseite";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Dososta Bibliothek";
             loginBasisGroupbox.ResumeLayout(false);
             loginBasisGroupbox.PerformLayout();

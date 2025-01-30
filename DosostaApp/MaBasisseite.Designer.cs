@@ -32,7 +32,9 @@
             logoutButton = new Button();
             textLabel1 = new Label();
             groupBox2 = new GroupBox();
+            label1 = new Label();
             statusGroupbox.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // statusGroupbox
@@ -58,6 +60,7 @@
             logoutButton.TabIndex = 1;
             logoutButton.Text = "Logout";
             logoutButton.UseVisualStyleBackColor = false;
+            logoutButton.Click += LogoutButton_click;
             // 
             // textLabel1
             // 
@@ -72,12 +75,22 @@
             // groupBox2
             // 
             groupBox2.BackColor = Color.FromArgb(255, 244, 233);
+            groupBox2.Controls.Add(label1);
             groupBox2.Location = new Point(119, 85);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(648, 413);
             groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
             groupBox2.Text = "groupBox2";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(193, 173);
+            label1.Name = "label1";
+            label1.Size = new Size(96, 17);
+            label1.TabIndex = 0;
+            label1.Text = "Mitarbeiter";
             // 
             // MaBasisseite
             // 
@@ -94,6 +107,8 @@
             Text = "Dososta Bibliothek";
             statusGroupbox.ResumeLayout(false);
             statusGroupbox.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -103,5 +118,6 @@
         private Label textLabel1;
         private Button logoutButton;
         private GroupBox groupBox2;
+        private Label label1;
     }
 }
