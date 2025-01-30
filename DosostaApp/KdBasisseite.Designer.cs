@@ -33,6 +33,7 @@
             groupBox1 = new GroupBox();
             Bücherliste = new ListBox();
             ProfilButton = new Button();
+            AusleihButton = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -40,7 +41,7 @@
             // 
             LogoutButton.Location = new Point(27, 408);
             LogoutButton.Name = "LogoutButton";
-            LogoutButton.Size = new Size(75, 23);
+            LogoutButton.Size = new Size(95, 23);
             LogoutButton.TabIndex = 0;
             LogoutButton.Text = "Logout";
             LogoutButton.UseVisualStyleBackColor = true;
@@ -50,9 +51,9 @@
             // 
             VerleihButton.Location = new Point(27, 379);
             VerleihButton.Name = "VerleihButton";
-            VerleihButton.Size = new Size(75, 23);
+            VerleihButton.Size = new Size(128, 23);
             VerleihButton.TabIndex = 1;
-            VerleihButton.Text = "Bücher";
+            VerleihButton.Text = "Meine Bücher";
             VerleihButton.UseVisualStyleBackColor = true;
             VerleihButton.Click += MeineBücherButton_click;
             // 
@@ -80,11 +81,21 @@
             // 
             ProfilButton.Location = new Point(27, 350);
             ProfilButton.Name = "ProfilButton";
-            ProfilButton.Size = new Size(75, 23);
+            ProfilButton.Size = new Size(128, 23);
             ProfilButton.TabIndex = 3;
-            ProfilButton.Text = "Profil";
+            ProfilButton.Text = "Mein Profil";
             ProfilButton.UseVisualStyleBackColor = true;
             ProfilButton.Click += ProfilButton_click;
+            // 
+            // AusleihButton
+            // 
+            AusleihButton.Location = new Point(27, 321);
+            AusleihButton.Name = "AusleihButton";
+            AusleihButton.Size = new Size(148, 23);
+            AusleihButton.TabIndex = 4;
+            AusleihButton.Text = "Buch Ausleihen";
+            AusleihButton.UseVisualStyleBackColor = true;
+            AusleihButton.Click += BuchAusleihenButton_click;
             // 
             // KdBasisseite
             // 
@@ -92,6 +103,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 244, 233);
             ClientSize = new Size(916, 453);
+            Controls.Add(AusleihButton);
             Controls.Add(ProfilButton);
             Controls.Add(groupBox1);
             Controls.Add(VerleihButton);
@@ -110,5 +122,6 @@
         private GroupBox groupBox1;
         private Button ProfilButton;
         private ListBox Bücherliste;
+        private Button AusleihButton;
     }
 }
