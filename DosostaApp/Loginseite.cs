@@ -33,13 +33,15 @@ namespace DosostaApp
             string? nachname = nachnameTextbox.Text;
             string? passwort = passwortTextbox.Text;
 
-            (bool erfolg, string status) loginResultat = loginErfolg(vorname, nachname, passwort);
+            (bool erfolg, string status, int kundenID, string email) loginResultat = loginErfolg(vorname, nachname, passwort);
             if (loginResultat.erfolg)
             {
                 Close();
                 if (loginResultat.status == "Kunde")
                 {
                     KdBasisseite kdSeite = new();
+                    KdBasisseite.Benutzersession.UserID = loginResultat.kundenID;
+                    KdBasisseite.Benutzersession.email = loginResultat.email;
                     kdSeite.Show();
                 }
                 else
@@ -52,7 +54,7 @@ namespace DosostaApp
                 return;
         }
 
-        private (bool, string) loginErfolg(string vorname, string nachname, string passwort)
+        private (bool, string, int, string email) loginErfolg(string vorname, string nachname, string passwort)
         {
             Datenbank kunden = new Datenbank();
 
@@ -60,30 +62,30 @@ namespace DosostaApp
             {
                 string message = "Login nicht erfolgreich. Alle Felder müssen ausgefüllt sein.";
                 MessageBox.Show(message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return (false, "error");
+                return (false, "error", -1, "");
             }
             else if (versuche <= 0)
             {
                 string message = $"Zu viele Fehlversuche, Konto gesperrt. Wenden Sie sich an einen Mitarbeiter.";
                 MessageBox.Show(message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return (false, "error");
+                return (false, "error", -1, "");
             }
             //bool test = kunden.CheckLoginSimple(vorname, nachname, passwort);
             //MessageBox.Show(test.ToString());
 
-            (bool erfolg, string status, int kundenID) loginResultat = kunden.CheckLogin(vorname, nachname, passwort);
+            (bool erfolg, string status, int kundenID, string email) loginResultat = kunden.CheckLogin(vorname, nachname, passwort);
             
             if (loginResultat.erfolg)
-                return (loginResultat.erfolg, loginResultat.status);
+                return (loginResultat.erfolg, loginResultat.status, loginResultat.kundenID, loginResultat.email);
             else if (!loginResultat.erfolg)
             {
                 versuche--;
                 string message = $"Login nicht erfolgreich. Daten stimmen nicht überein. Weitere Versuche: {versuche}";
                 MessageBox.Show(message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return (false, "error");
+                return (false, "error", -1, "");
             }
 
-            return (false, "error");
+            return (false, "error", -1, "");
         }
     }
 }

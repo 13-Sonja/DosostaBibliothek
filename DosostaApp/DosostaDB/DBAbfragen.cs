@@ -16,7 +16,7 @@ namespace DosostaApp.DosostaDB
         private SQLiteCommand command;
         private SQLiteDataReader reader;
 
-        private SQLiteConnection ConnectDB()
+        public SQLiteConnection ConnectDB()
             //TO DO relativen Pfad benutzen
         {            
             string curPath = System.Environment.CurrentDirectory;
@@ -74,17 +74,18 @@ namespace DosostaApp.DosostaDB
             return loginSuccessful;
         }
          */
-        public (bool, string, int) CheckLogin(string vorname, string nachname, string passwort)
+        public (bool, string, int, string) CheckLogin(string vorname, string nachname, string passwort)
         {
             bool loginSuccessful = false;
             int id = 0;
             string status = "";
+            string email = "";
 
             using (SQLiteConnection connection = ConnectDB())
                 try
                     {
                         connection.Open();
-                        string query = "SELECT UserID, status FROM User WHERE passwort = @passwort AND vorname = @vorname AND nachname = @nachname;";
+                        string query = "SELECT UserID, status, email FROM User WHERE passwort = @passwort AND vorname = @vorname AND nachname = @nachname;";
                         using (SQLiteCommand command = new SQLiteCommand(query, connection))
                         {
                             command.Parameters.AddWithValue("@passwort", passwort);
@@ -96,8 +97,9 @@ namespace DosostaApp.DosostaDB
                         {
                             id = Convert.ToInt32((reader["UserID"].ToString()));
                             status = reader["status"].ToString();
+                            email = reader["email"].ToString();
                             loginSuccessful = true;
-                            //MessageBox.Show($"{id} {status}");
+                            //MessageBox.Show($"{email}");
                         }
                             else
                             {
@@ -113,7 +115,7 @@ namespace DosostaApp.DosostaDB
                     {
                         connection.Close();
                     }
-                    return (loginSuccessful, status, id);
+                    return (loginSuccessful, status, id, email);
                 }
 
         public void BenutzerHinzufügen(string vorname, string nachname, string passwort, string email, string geburtsdatum)

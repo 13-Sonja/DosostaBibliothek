@@ -30,71 +30,68 @@
         {
             LogoutButton = new Button();
             VerleihButton = new Button();
-            groupBox1 = new GroupBox();
-            Bücherliste = new ListBox();
+            basisGroupbox = new GroupBox();
             ProfilButton = new Button();
             AusleihButton = new Button();
-            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // LogoutButton
             // 
-            LogoutButton.Location = new Point(27, 408);
+            LogoutButton.BackColor = Color.FromArgb(143, 148, 171);
+            LogoutButton.Font = new Font("Cascadia Mono", 12F);
+            LogoutButton.Location = new Point(45, 370);
             LogoutButton.Name = "LogoutButton";
-            LogoutButton.Size = new Size(95, 23);
+            LogoutButton.Size = new Size(160, 58);
             LogoutButton.TabIndex = 0;
             LogoutButton.Text = "Logout";
-            LogoutButton.UseVisualStyleBackColor = true;
+            LogoutButton.UseVisualStyleBackColor = false;
             LogoutButton.Click += LogoutButton_click;
             // 
             // VerleihButton
             // 
-            VerleihButton.Location = new Point(27, 379);
+            VerleihButton.BackColor = Color.FromArgb(154, 189, 162);
+            VerleihButton.Font = new Font("Cascadia Mono", 12F);
+            VerleihButton.Location = new Point(45, 167);
             VerleihButton.Name = "VerleihButton";
-            VerleihButton.Size = new Size(128, 23);
+            VerleihButton.Size = new Size(160, 51);
             VerleihButton.TabIndex = 1;
             VerleihButton.Text = "Meine Bücher";
-            VerleihButton.UseVisualStyleBackColor = true;
+            VerleihButton.UseVisualStyleBackColor = false;
             VerleihButton.Click += MeineBücherButton_click;
             // 
-            // groupBox1
+            // basisGroupbox
             // 
-            groupBox1.Controls.Add(Bücherliste);
-            groupBox1.Location = new Point(439, 78);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(465, 363);
-            groupBox1.TabIndex = 2;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "groupBox1";
-            // 
-            // Bücherliste
-            // 
-            Bücherliste.Dock = DockStyle.Fill;
-            Bücherliste.FormattingEnabled = true;
-            Bücherliste.ItemHeight = 17;
-            Bücherliste.Location = new Point(3, 19);
-            Bücherliste.Name = "Bücherliste";
-            Bücherliste.Size = new Size(459, 341);
-            Bücherliste.TabIndex = 0;
+            basisGroupbox.BackColor = Color.FromArgb(250, 227, 204);
+            basisGroupbox.Font = new Font("Cascadia Mono", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            basisGroupbox.Location = new Point(266, 12);
+            basisGroupbox.Name = "basisGroupbox";
+            basisGroupbox.Size = new Size(635, 429);
+            basisGroupbox.TabIndex = 2;
+            basisGroupbox.TabStop = false;
+            basisGroupbox.Text = "Ihr persönlicher Hub";
             // 
             // ProfilButton
             // 
-            ProfilButton.Location = new Point(27, 350);
+            ProfilButton.BackColor = Color.FromArgb(195, 214, 199);
+            ProfilButton.Font = new Font("Cascadia Mono", 12F);
+            ProfilButton.Location = new Point(45, 249);
             ProfilButton.Name = "ProfilButton";
-            ProfilButton.Size = new Size(128, 23);
+            ProfilButton.Size = new Size(160, 49);
             ProfilButton.TabIndex = 3;
             ProfilButton.Text = "Mein Profil";
-            ProfilButton.UseVisualStyleBackColor = true;
+            ProfilButton.UseVisualStyleBackColor = false;
             ProfilButton.Click += ProfilButton_click;
             // 
             // AusleihButton
             // 
-            AusleihButton.Location = new Point(27, 321);
+            AusleihButton.BackColor = Color.FromArgb(154, 189, 162);
+            AusleihButton.Font = new Font("Cascadia Mono", 12F);
+            AusleihButton.Location = new Point(45, 89);
             AusleihButton.Name = "AusleihButton";
-            AusleihButton.Size = new Size(148, 23);
+            AusleihButton.Size = new Size(160, 50);
             AusleihButton.TabIndex = 4;
             AusleihButton.Text = "Buch Ausleihen";
-            AusleihButton.UseVisualStyleBackColor = true;
+            AusleihButton.UseVisualStyleBackColor = false;
             AusleihButton.Click += BuchAusleihenButton_click;
             // 
             // KdBasisseite
@@ -102,16 +99,18 @@
             AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 244, 233);
+            BackgroundImage = Properties.Resources.bg4;
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(916, 453);
             Controls.Add(AusleihButton);
             Controls.Add(ProfilButton);
-            Controls.Add(groupBox1);
+            Controls.Add(basisGroupbox);
             Controls.Add(VerleihButton);
             Controls.Add(LogoutButton);
             Font = new Font("Cascadia Mono", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Name = "KdBasisseite";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Dososta Bibliothek";
-            groupBox1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -119,9 +118,8 @@
 
         private Button LogoutButton;
         private Button VerleihButton;
-        private GroupBox groupBox1;
+        private GroupBox basisGroupbox;
         private Button ProfilButton;
-        private ListBox Bücherliste;
         private Button AusleihButton;
     }
 }

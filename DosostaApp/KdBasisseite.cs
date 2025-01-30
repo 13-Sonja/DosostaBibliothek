@@ -8,12 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DosostaApp.DosostaDB;
 
 
 namespace DosostaApp
 {
     public partial class KdBasisseite : Form
     {
+        Datenbank dosostaDB = new();
         public KdBasisseite()
         {
             InitializeComponent();
@@ -24,8 +26,8 @@ namespace DosostaApp
 
             if (confirmLogout == DialogResult.Yes)
             {
-                this.Hide();
-                Startseite startForm = new Startseite();
+                Close();
+                Startseite startForm = new();
                 startForm.Show();
             }
         }
@@ -37,18 +39,21 @@ namespace DosostaApp
         }
         private void ProfilButton_click(object sender, EventArgs e)
         {
-            groupBox1.Controls.Clear();
+            basisGroupbox.Controls.Clear();
+            basisGroupbox.Text = "Ihre Informationen";
             Profilinformation();
         }
         private void Profilinformation()
         {
-            string loggedInEmail = Benutzersession.email;
-            string query = "SELECT Vorname, Nachname, Email FROM User WHERE email = @email";
+            string vorname = "";
+            string nachname = "";
+            string email = "";
+            string query = "SELECT vorname, nachname, email FROM User WHERE email = @email";
 
-            using (SQLiteConnection connection = new SQLiteConnection("Data Source=C:\\Users\\mytq\\Documents\\GitHub\\DosostaBibliothek\\DosostaApp\\DosostaDB\\Datenbank.db;Version=3;"))
+            using (SQLiteConnection connection = dosostaDB.ConnectDB())
             {
                 SQLiteCommand command = new SQLiteCommand(query, connection);
-                command.Parameters.AddWithValue("@email", loggedInEmail);
+                command.Parameters.AddWithValue("@email", Benutzersession.email);
 
                 try
                 {
@@ -56,43 +61,43 @@ namespace DosostaApp
                     SQLiteDataReader reader = command.ExecuteReader();
                     if (reader.Read())
                     {
-                        foreach (Control control in groupBox1.Controls)
+                        foreach (Control control in basisGroupbox.Controls)
                         {
                             if (control is Label)
                             {
                                 control.Dispose();
                             }
                         }
-                        string vorname = reader["Vorname"].ToString();
-                        string nachname = reader["Nachname"].ToString();
-                        string email = reader["Email"].ToString();
+                        vorname = reader["vorname"].ToString();
+                        nachname = reader["nachname"].ToString();
+                        email = reader["email"].ToString();
                         int yOffset = 30;
 
                         Label lblVorname = new Label
                         {
-                            Text = "Vorname: " + reader["Vorname"].ToString(),
+                            Text = "Vorname: " + vorname,
                             Location = new Point(10, yOffset),
                             Size = new Size(120, 25)
                         };
-                        groupBox1.Controls.Add(lblVorname);
+                        basisGroupbox.Controls.Add(lblVorname);
                         yOffset += 40;
 
                         Label lblNachname = new Label
                         {
-                            Text = "Nachname: " + reader["Nachname"].ToString(),
-                            Location = new Point(20, 100),
+                            Text = "Nachname: " + nachname,
+                            Location = new Point(20, yOffset),
                             Size = new Size(220, 25)
                         };
-                        groupBox1.Controls.Add(lblVorname);
+                        basisGroupbox.Controls.Add(lblNachname);
                         yOffset += 40;
 
                         Label lblEmail = new Label
                         {
-                            Text = "E-Mail: " + reader["Email"].ToString(),
-                            Location = new Point(20, 140),
+                            Text = "E-Mail: " + email,
+                            Location = new Point(20, yOffset),
                             Size = new Size(320, 25)
                         };
-                        groupBox1.Controls.Add(lblVorname);
+                        basisGroupbox.Controls.Add(lblEmail);
                         yOffset += 40;
 
                         Button btnVorname = new Button
@@ -101,7 +106,7 @@ namespace DosostaApp
                             Location = new Point(240, 30),
                             Size = new Size(80, 25)
                         };
-                        btnVorname.Click += (sender, e) => EditProfileField("Vorname", loggedInEmail);
+                        btnVorname.Click += (sender, e) => EditProfileField("Vorname", Benutzersession.email);
                         yOffset += 40;
 
                         Button btnNachname = new Button
@@ -110,7 +115,7 @@ namespace DosostaApp
                             Location = new Point(240, 70),
                             Size = new Size(80, 25)
                         };
-                        btnNachname.Click += (sender, e) => EditProfileField("Nachname", loggedInEmail);
+                        btnNachname.Click += (sender, e) => EditProfileField("Nachname", Benutzersession.email);
                         yOffset += 40;
 
                         Button btnPasswort = new Button
@@ -119,13 +124,13 @@ namespace DosostaApp
                             Location = new Point(240, 110),
                             Size = new Size(80, 25)
                         };
-                        btnPasswort.Click += (sender, e) => EditProfileField("Passwort", loggedInEmail);
-                        groupBox1.Controls.Add(lblVorname);
-                        groupBox1.Controls.Add(lblNachname);
-                        groupBox1.Controls.Add(lblEmail);
-                        groupBox1.Controls.Add(btnVorname);
-                        groupBox1.Controls.Add(btnNachname);
-                        groupBox1.Controls.Add(btnPasswort);
+                        btnPasswort.Click += (sender, e) => EditProfileField("Passwort", Benutzersession.email);
+                        //basisGroupbox.Controls.Add(lblVorname);
+                        //basisGroupbox.Controls.Add(lblNachname);
+                        //basisGroupbox.Controls.Add(lblEmail);
+                        basisGroupbox.Controls.Add(btnVorname);
+                        basisGroupbox.Controls.Add(btnNachname);
+                        basisGroupbox.Controls.Add(btnPasswort);
                     }
                     else
                     {
@@ -136,6 +141,10 @@ namespace DosostaApp
                 catch (Exception ex)
                 {
                     MessageBox.Show("Fehler beim Abrufen der Benutzerdaten: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connection.Close();
                 }
             }
         }
@@ -150,7 +159,7 @@ namespace DosostaApp
 
             string query = $"UPDATE User SET {field} = @newValue WHERE email = @email";
 
-            using (SQLiteConnection connection = new SQLiteConnection("Data Source=C:\\Users\\mytq\\Documents\\GitHub\\DosostaBibliothek\\DosostaApp\\DosostaDB\\Datenbank.db;Version=3;"))
+            using (SQLiteConnection connection = dosostaDB.ConnectDB())
             {
                 SQLiteCommand command = new SQLiteCommand(query, connection);
                 command.Parameters.AddWithValue("@newValue", newValue);
@@ -174,11 +183,16 @@ namespace DosostaApp
                 {
                     MessageBox.Show("Fehler beim Aktualisieren des Feldes " + field + ": " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                finally
+                {
+                    connection.Close();
+                }
             }
         }
         private void MeineBücherButton_click(object sender, EventArgs e)
         {
-            groupBox1.Controls.Clear();
+            basisGroupbox.Controls.Clear();
+            basisGroupbox.Text = "Ihre ausgeliehenen Bücher";
             MeineBücher_Bücher();
         }
         private void MeineBücher_Bücher()
@@ -186,7 +200,7 @@ namespace DosostaApp
             int UserID = Benutzersession.UserID;
             string query = "SELECT b.Titel, b.Autor, v.Verleihdatum, v.Rückgabedatum FROM Verleih v JOIN Buecher b ON v.BuchID = b.BuchID WHERE v.UserID = @UserID AND v.Status = 'ausgeliehen'";
 
-            using (SQLiteConnection connection = new SQLiteConnection("Data Source=C:\\Users\\mytq\\Documents\\GitHub\\DosostaBibliothek\\DosostaApp\\DosostaDB\\Datenbank.db;Version=3;"))
+            using (SQLiteConnection connection = dosostaDB.ConnectDB())
             {
                 SQLiteCommand command = new SQLiteCommand(query, connection);
                 command.Parameters.AddWithValue("@UserID", UserID);
@@ -197,7 +211,7 @@ namespace DosostaApp
                     SQLiteDataReader reader = command.ExecuteReader();
                     ListBox Bücherliste = new ListBox();
                     Bücherliste.Dock = DockStyle.Fill;
-                    groupBox1.Controls.Add(Bücherliste);
+                    basisGroupbox.Controls.Add(Bücherliste);
 
                     while (reader.Read())
                     {
@@ -242,51 +256,56 @@ namespace DosostaApp
                 {
                     MessageBox.Show("Fehler beim Abrufen der Daten: " + ex.Message);
                 }
+                finally
+                {
+                    connection.Close();
+                }
             }
         }
         private void BuchAusleihenButton_click(object sender, EventArgs e)
         {
-            groupBox1.Controls.Clear();
+            basisGroupbox.Controls.Clear();
+            basisGroupbox.Text = "Ausleihe";
             BücherSuchen();
         }
         private void BücherSuchen()
         {
-            int yOffset = 20;
+            int yOffset = 30;
 
-            Label lblAutor = new Label { Text = "Autor:", Location = new Point(10, yOffset), Size = new Size(50, 25) };
-            groupBox1.Controls.Add(lblAutor);
-            TextBox txtAutor = new TextBox { Name = "txtAutor", Location = new Point(70, yOffset), Size = new Size(200, 25) };
-            groupBox1.Controls.Add(txtAutor);
+            Label lblAutor = new Label { Text = "Autor:", Location = new Point(10, yOffset), Size = new Size(60, 25) };
+            basisGroupbox.Controls.Add(lblAutor);
+            TextBox txtAutor = new TextBox { Name = "txtAutor", Location = new Point(80, yOffset), Size = new Size(200, 25) };
+            basisGroupbox.Controls.Add(txtAutor);
             yOffset += 40;
 
-            Label lblTitel = new Label { Text = "Titel:", Location = new Point(10, yOffset), Size = new Size(50, 25) };
-            groupBox1.Controls.Add(lblTitel);
-            TextBox txtTitel = new TextBox { Name = "txtTitel", Location = new Point(70, yOffset), Size = new Size(200, 25) };
-            groupBox1.Controls.Add(txtTitel);
+            Label lblTitel = new Label { Text = "Titel:", Location = new Point(10, yOffset), Size = new Size(60, 25) };
+            basisGroupbox.Controls.Add(lblTitel);
+            TextBox txtTitel = new TextBox { Name = "txtTitel", Location = new Point(80, yOffset), Size = new Size(200, 25) };
+            basisGroupbox.Controls.Add(txtTitel);
             yOffset += 40;
 
-            Label lblGenre = new Label { Text = "Genre:", Location = new Point(10, yOffset), Size = new Size(50, 25) };
-            groupBox1.Controls.Add(lblGenre);
-            TextBox txtGenre = new TextBox { Name = "txtGenre", Location = new Point(70, yOffset), Size = new Size(200, 25) };
-            groupBox1.Controls.Add(txtGenre);
+            Label lblGenre = new Label { Text = "Genre:", Location = new Point(10, yOffset), Size = new Size(60, 25) };
+            basisGroupbox.Controls.Add(lblGenre);
+            TextBox txtGenre = new TextBox { Name = "txtGenre", Location = new Point(80, yOffset), Size = new Size(200, 25) };
+            basisGroupbox.Controls.Add(txtGenre);
             yOffset += 40;
 
             Button btnSuchen = new Button { Text = "Suchen", Location = new Point(10, yOffset), Size = new Size(80, 30) };
             btnSuchen.Click += (sender, e) => BücherSuchenButton_Click(sender, e);
-            groupBox1.Controls.Add(btnSuchen);
+            basisGroupbox.Controls.Add(btnSuchen);
             yOffset += 40;
 
             Button btnLeiheBestätigen = new Button { Text = "Ausleihe Bestätigen", Location  = new Point (btnSuchen.Location.X+160,btnSuchen.Location.Y), Size = new Size(200, 30), Enabled = false };
-            groupBox1.Controls.Add(btnLeiheBestätigen);
+            basisGroupbox.Controls.Add(btnLeiheBestätigen);
 
 
             ListBox listBoxErgebnisse = new ListBox
             {
                 Name = "listBoxErgebnisse",
                 Location = new Point(10, yOffset),
-                Size = new Size(350, 200)
+                Size = new Size(basisGroupbox.Width - 20, 200)
             };
-            groupBox1.Controls.Add(listBoxErgebnisse);
+            basisGroupbox.Controls.Add(listBoxErgebnisse);
             yOffset += 220;
 
             listBoxErgebnisse.SelectedIndexChanged += (sender, e) =>
@@ -298,9 +317,9 @@ namespace DosostaApp
         }
         private void BücherSuchenButton_Click(object sender, EventArgs e)
         {
-            string autor = ((TextBox)groupBox1.Controls["txtAutor"]).Text.Trim();
-            string titel = ((TextBox)groupBox1.Controls["txtTitel"]).Text.Trim();
-            string genre = ((TextBox)groupBox1.Controls["txtGenre"]).Text.Trim();
+            string autor = ((TextBox)basisGroupbox.Controls["txtAutor"]).Text.Trim();
+            string titel = ((TextBox)basisGroupbox.Controls["txtTitel"]).Text.Trim();
+            string genre = ((TextBox)basisGroupbox.Controls["txtGenre"]).Text.Trim();
 
             string query = "SELECT Titel, Autor, Genre, Menge FROM Buecher WHERE 1=1";
             List<SQLiteParameter> parameters = new List<SQLiteParameter>();
@@ -321,10 +340,10 @@ namespace DosostaApp
                 parameters.Add(new SQLiteParameter("@genre", "%" + genre + "%"));
             }
 
-            ListBox listBoxErgebnisse = (ListBox)groupBox1.Controls["listBoxErgebnisse"];
+            ListBox listBoxErgebnisse = (ListBox)basisGroupbox.Controls["listBoxErgebnisse"];
             listBoxErgebnisse.Items.Clear();
 
-            using (SQLiteConnection connection = new SQLiteConnection("Data Source=C:\\Users\\mytq\\Documents\\GitHub\\DosostaBibliothek\\DosostaApp\\DosostaDB\\Datenbank.db;Version=3;"))
+            using (SQLiteConnection connection = dosostaDB.ConnectDB())
             {
                 SQLiteCommand command = new SQLiteCommand(query, connection);
                 command.Parameters.AddRange(parameters.ToArray());
@@ -363,9 +382,9 @@ namespace DosostaApp
         }
         private void BücherleiheButton_click(object sender, EventArgs e)
         {
-            string autor = ((TextBox)groupBox1.Controls["txtAutor"]).Text.Trim();
-            string titel = ((TextBox)groupBox1.Controls["txtTitel"]).Text.Trim();
-            string genre = ((TextBox)groupBox1.Controls["txtGenre"]).Text.Trim();
+            string autor = ((TextBox)basisGroupbox.Controls["txtAutor"]).Text.Trim();
+            string titel = ((TextBox)basisGroupbox.Controls["txtTitel"]).Text.Trim();
+            string genre = ((TextBox)basisGroupbox.Controls["txtGenre"]).Text.Trim();
 
             string query = "SELECT Titel, Autor, Genre, Menge FROM Buecher WHERE 1=1";
             List<SQLiteParameter> parameters = new List<SQLiteParameter>();
@@ -386,9 +405,9 @@ namespace DosostaApp
                 parameters.Add(new SQLiteParameter("@genre", "%" + genre + "%"));
             }
             ListBox listBoxErgebnisse;
-            if (groupBox1.Controls.ContainsKey("listBoxErgebnisse"))
+            if (basisGroupbox.Controls.ContainsKey("listBoxErgebnisse"))
             {
-                listBoxErgebnisse = (ListBox)groupBox1.Controls["listBoxErgebnisse"];
+                listBoxErgebnisse = (ListBox)basisGroupbox.Controls["listBoxErgebnisse"];
                 listBoxErgebnisse.Items.Clear(); 
             }
             else
@@ -399,9 +418,9 @@ namespace DosostaApp
                     Location = new Point(10, 200),
                     Size = new Size(350, 200)
                 };
-                groupBox1.Controls.Add(listBoxErgebnisse);
+                basisGroupbox.Controls.Add(listBoxErgebnisse);
             }
-            using (SQLiteConnection connection = new SQLiteConnection("Data Source=C:\\Users\\mytq\\Documents\\GitHub\\DosostaBibliothek\\DosostaApp\\DosostaDB\\Datenbank.db;Version=3;"))
+            using (SQLiteConnection connection = dosostaDB.ConnectDB())
             {
                 SQLiteCommand command = new SQLiteCommand(query, connection);
                 command.Parameters.AddRange(parameters.ToArray());
@@ -423,14 +442,19 @@ namespace DosostaApp
                                 listBoxErgebnisse.Items.Add(result);
                             }
                         }
+                        reader.Close();
                     } 
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Fehler beim Ausführen der Suche: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                finally
+                {
+                    connection.Close();
+                }
             }
-            if (!groupBox1.Controls.ContainsKey("btnBestätigenUndAusleihen"))
+            if (!basisGroupbox.Controls.ContainsKey("btnBestätigenUndAusleihen"))
             {
                 Button btnBestätigenUndAusleihen = new Button
                 {
@@ -442,7 +466,7 @@ namespace DosostaApp
                 };
 
                 btnBestätigenUndAusleihen.Click += (s, e) => AusleiheBestätigenButton_click(s, e, listBoxErgebnisse);
-                groupBox1.Controls.Add(btnBestätigenUndAusleihen);
+                basisGroupbox.Controls.Add(btnBestätigenUndAusleihen);
             }
         }
         private void AusleiheBestätigenButton_click(object sender, EventArgs e, ListBox listBoxErgebnisse)
@@ -463,7 +487,7 @@ namespace DosostaApp
 
             if (int.Parse(menge) > 0)
             {
-                using (SQLiteConnection connection = new SQLiteConnection("Data Source=C:\\Users\\mytq\\Documents\\GitHub\\DosostaBibliothek\\DosostaApp\\DosostaDB\\Datenbank.db;Version=3;"))
+                using (SQLiteConnection connection = dosostaDB.ConnectDB())
                 {
                     connection.Open();
                     using (SQLiteTransaction transaction = connection.BeginTransaction())
@@ -522,6 +546,10 @@ namespace DosostaApp
                             transaction.Rollback();
                             MessageBox.Show("Fehler bei der Ausleihe: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
+                        finally
+                        {
+                            connection.Close();
+                        }
                     }
                 }
             }
@@ -529,6 +557,7 @@ namespace DosostaApp
             {
                 MessageBox.Show("Das Buch ist derzeit nicht verfügbar.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
         }
     }
 }
