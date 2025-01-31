@@ -21,8 +21,8 @@ namespace DosostaApp
 
           //var userverwaltung = new UserVerwaltung();
            //new Userverwaltung.Show();
-            new Buchverwaltung().Show();
-            Application.Run(new UserVerwaltung());
+            new Loginseite().Show();
+            Application.Run();
         }
     }
 }
