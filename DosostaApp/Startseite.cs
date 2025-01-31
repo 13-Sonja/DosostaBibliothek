@@ -16,5 +16,29 @@ namespace DosostaApp
         {
             InitializeComponent();
         }
+
+        private void kdLoginButton_Click(object sender, EventArgs e)
+        {
+            Loginseite kdLogin = new();
+            kdLogin.RefToStart = this;
+            kdLogin.Show();
+            Hide();
+        }
+
+        private void registrierenButton_Click(object sender, EventArgs e)
+        {
+            Registrierungsseite regSeite = new();
+            regSeite.RefToStart = this;
+            regSeite.Show();
+            Hide();
+        }
+
+        private void maLoginButton_Click(object sender, EventArgs e)
+        {
+            Loginseite maLogin = new();
+            maLogin.RefToStart = this;
+            maLogin.Show();
+            Hide();
+        }
     }
 }
