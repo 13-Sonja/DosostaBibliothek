@@ -4,6 +4,8 @@
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
 *.db-journal
+*.db
+*.sqbpro
 
 # User-specific files
 *.rsuser
@@ -400,4 +402,3 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-/DosostaApp/DosostaDB/Datenbank.db
