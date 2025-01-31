@@ -19,3 +19,5 @@
  -Form auswählen, bei BackgroundImage auf drei Punkte klicken
 
  - in neuem Fenster Projektressourcendatei auswählen und bg4 benutzen oder neues Bild importieren
+
+ - BackgroundImageLayout auf stretch stellen
