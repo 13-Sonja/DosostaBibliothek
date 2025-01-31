@@ -25,55 +25,7 @@ namespace DosostaApp.DosostaDB
             connection = new SQLiteConnection(connectionString);
             return connection;
         }
-        /*
-        public bool CheckLoginSimple(string vorname, string nachname, string passwort)
-        {
-            bool loginSuccessful = false;
-            string query = "SELECT COUNT(*) FROM User WHERE passwort = @passwort;";
-            using (SQLiteConnection connection = ConnectDB())
-                try
-                {
-                    connection.Open();
-                    using (SQLiteCommand command = new SQLiteCommand(query, connection))
-                    {
 
-                        command.Parameters.AddWithValue("@passwort", passwort);
-
-                        command.Parameters.Add("@passwort", DbType.String);
-                        command.Parameters["@passwort"].Value = passwort;
-
-                        command.Parameters.Add("@vorname", DbType.String);
-                        command.Parameters["@vorname"].Value = vorname;
-
-                        command.Parameters.Add("@nachname", DbType.String);
-                        command.Parameters["@nachname"].Value = nachname;
-                        var count = command.ExecuteScalar();
-                        Console.WriteLine(count);
-                        //using var reader = command.ExecuteReader();
-                        if (count != null)
-                        {
-                            MessageBox.Show(count.ToString());
-                            loginSuccessful = true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Benutzerdaten konnten nicht gefunden werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            loginSuccessful = false;
-                        }
-                    }
-                }
-
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Fehler beim Login: {ex.Message}");
-                }
-                finally
-                {
-                    connection.Close();
-                }
-            return loginSuccessful;
-        }
-         */
         public (bool, string, int, string) CheckLogin(string vorname, string nachname, string passwort)
         {
             bool loginSuccessful = false;
@@ -83,31 +35,31 @@ namespace DosostaApp.DosostaDB
 
             using (SQLiteConnection connection = ConnectDB())
                 try
+                {
+                    connection.Open();
+                    string query = "SELECT UserID, status, email FROM User WHERE passwort = @passwort AND vorname = @vorname AND nachname = @nachname;";
+                    using (SQLiteCommand command = new SQLiteCommand(query, connection))
                     {
-                        connection.Open();
-                        string query = "SELECT UserID, status, email FROM User WHERE passwort = @passwort AND vorname = @vorname AND nachname = @nachname;";
-                        using (SQLiteCommand command = new SQLiteCommand(query, connection))
-                        {
-                            command.Parameters.AddWithValue("@passwort", passwort);
-                            command.Parameters.AddWithValue("@vorname", vorname);
-                            command.Parameters.AddWithValue("@nachname", nachname);
+                        command.Parameters.AddWithValue("@passwort", passwort);
+                        command.Parameters.AddWithValue("@vorname", vorname);
+                        command.Parameters.AddWithValue("@nachname", nachname);
 
-                        SQLiteDataReader reader = command.ExecuteReader();
-                        if (reader.Read())
-                        {
-                            id = Convert.ToInt32((reader["UserID"].ToString()));
-                            status = reader["status"].ToString();
-                            email = reader["email"].ToString();
-                            loginSuccessful = true;
-                            //MessageBox.Show($"{email}");
-                        }
-                        else
-                            {
-                                MessageBox.Show("Benutzerdaten konnten nicht gefunden werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                        reader.Close();
-                        }
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        id = Convert.ToInt32((reader["UserID"].ToString()));
+                        status = reader["status"].ToString();
+                        email = reader["email"].ToString();
+                        loginSuccessful = true;
+                        //MessageBox.Show($"{email}");
                     }
+                    else
+                        {
+                            MessageBox.Show("Benutzerdaten konnten nicht gefunden werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    reader.Close();
+                    }
+                 }
                     catch (Exception ex)
                     {
                         MessageBox.Show($"Fehler beim Login: {ex.Message}");

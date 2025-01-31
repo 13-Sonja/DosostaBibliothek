@@ -47,6 +47,7 @@ namespace DosostaApp
                 else
                 {
                     MaBasisseite maSeite = new();
+                    maSeite.status = loginResultat.status;
                     maSeite.Show();
                 }
             }

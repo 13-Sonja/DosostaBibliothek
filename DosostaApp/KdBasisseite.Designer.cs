@@ -63,7 +63,7 @@
             // 
             basisGroupbox.BackColor = Color.FromArgb(250, 227, 204);
             basisGroupbox.Font = new Font("Cascadia Mono", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            basisGroupbox.Location = new Point(266, 12);
+            basisGroupbox.Location = new Point(267, 36);
             basisGroupbox.Name = "basisGroupbox";
             basisGroupbox.Size = new Size(635, 429);
             basisGroupbox.TabIndex = 2;
@@ -96,11 +96,10 @@
             // 
             // KdBasisseite
             // 
-            AutoScaleDimensions = new SizeF(8F, 17F);
             BackColor = Color.FromArgb(255, 244, 233);
             BackgroundImage = Properties.Resources.bg4;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(916, 453);
+            ClientSize = new Size(914, 510);
             Controls.Add(AusleihButton);
             Controls.Add(ProfilButton);
             Controls.Add(basisGroupbox);

@@ -8,39 +8,55 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DosostaApp.DosostaDB;
 
 namespace DosostaApp
 {
-    public partial class Buchverwaltung : Form
+    public partial class MaBuchverwaltungsseite : Form
     {
-        public Buchverwaltung()
+        Datenbank dosostaDB = new();
+        public MaBuchverwaltungsseite()
         {
             InitializeComponent();
         }
 
-        private void Ausleihen_tabPage1_Click(object sender, EventArgs e)
+        private void ZeigenVerfübareBücher()
         {
+            string query = "SELECT autor, genre, titel FROM Buecher WHERE menge >= 0;";
+            using (SQLiteConnection connection = dosostaDB.ConnectDB())
+                try
+                {
+                    connection.Open();
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
+                    {
+                        SQLiteDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            while (reader.Read())
+                            {
+                                string result = $"{reader["titel"]} - {reader["autor"]} - {reader["genre"]}.";
+                                //availableBooks.Items.Add(result);
+                            }
+                            reader.Close();
+                        }
+                        else
+                            MessageBox.Show("Keine Bücher verfügbar.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
 
-        }
-
-        private void Zurückgeben_tabPage2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        public class Database
-        {
-            public static string connectionString = "Data Source = C:\\Users\\MYTQ\\Documents\\GitHub\\DosostaBibliothek\\DosostaApp\\DosostaDB\\Datenbank.db; Version = 3";
-
-            public static SQLiteConnection VerwaltungConnection()
-            {
-                return new SQLiteConnection(connectionString);
-            }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Fehler", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connection.Close();
+                }
         }
 
         private void Bücher()
         {
-            using (var conn = Database.VerwaltungConnection())
+            using (SQLiteConnection conn = dosostaDB.ConnectDB())
             {
                 conn.Open();
                 SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT * FROM  Buecher", conn);
@@ -55,10 +71,10 @@ namespace DosostaApp
             Bücher();
 
         }
-
+        /*
         private void BücherZurückgeben()
         {
-            using (var conn = Database.VerwaltungConnection())
+            using (SQLiteConnection conn = dosostaDB.ConnectDB())
             {
                 conn.Open();
                 SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT * FROM  Buecher", conn);
@@ -68,23 +84,17 @@ namespace DosostaApp
 
             }
         }
-
-
-        private void Zurückgeben_Click(object sender, EventArgs e)
+        */
+        private void KeinAnschluss_Click(object sender, EventArgs e)
         {
-
-            tabControl1.SelectedTab = Zurückgeben_tabPage2;
-            BücherZurückgeben();
+            MessageBox.Show("Kein Anschluss unter dieser Nummer.", "Nope", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
 
         private void btnAusleihen_Click(object sender, EventArgs e)
         {
             string titel = btnAusleihen.Text;
             // string name = NameAusleiher_textBox1.Text;
             int UserID = int.Parse(NameAusleiher_textBox1.Text);
-
-
 
             if (string.IsNullOrEmpty(titel))
             {
@@ -108,7 +118,7 @@ namespace DosostaApp
 
         private void Ausleihen_Click(int BuchID, int UserID)
         {
-            using (var conn = Database.VerwaltungConnection())
+            using (SQLiteConnection conn = dosostaDB.ConnectDB())
             {
                 conn.Open();
                 SQLiteTransaction transaction = conn.BeginTransaction();
@@ -157,20 +167,8 @@ namespace DosostaApp
 
             }
         }
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void BuchID_textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void Bücher_button_Click(object sender, EventArgs e)
         {
-
 
             // Werte aus den Textfeldern auslesen
             //string buchID = BuchID_textBox1.Text;
@@ -185,7 +183,7 @@ namespace DosostaApp
                            "VALUES ( @autor, @titel, @isbn, @genre, @menge)";
 
             // Verbindung zur Datenbank herstellen
-            using (var conn = Database.VerwaltungConnection())
+            using (SQLiteConnection conn = dosostaDB.ConnectDB())
             {
                 try
                 {
@@ -217,12 +215,11 @@ namespace DosostaApp
                     MessageBox.Show("Fehler: " + ex.Message);
                 }
             }
-
         }
 
-        private void isbn_label_Click(object sender, EventArgs e)
+        private void zurückButton_Click(object sender, EventArgs e)
         {
-
+            Close();
         }
     }
 }
