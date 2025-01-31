@@ -52,10 +52,10 @@
             // willkommenLabel
             // 
             willkommenLabel.AutoSize = true;
-            willkommenLabel.Font = new Font("Cascadia Code", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            willkommenLabel.Location = new Point(153, 45);
+            willkommenLabel.Font = new Font("Cascadia Code", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            willkommenLabel.Location = new Point(120, 19);
             willkommenLabel.Name = "willkommenLabel";
-            willkommenLabel.Size = new Size(264, 49);
+            willkommenLabel.Size = new Size(335, 63);
             willkommenLabel.TabIndex = 1;
             willkommenLabel.Text = "Willkommen!";
             // 
@@ -69,6 +69,7 @@
             registrierenButton.TabIndex = 2;
             registrierenButton.Text = "Neues Kundenkonto anlegen";
             registrierenButton.UseVisualStyleBackColor = false;
+            registrierenButton.Click += registrierenButton_Click;
             // 
             // maLoginButton
             // 
@@ -80,6 +81,7 @@
             maLoginButton.TabIndex = 1;
             maLoginButton.Text = "Login Mitarbeiter";
             maLoginButton.UseVisualStyleBackColor = false;
+            maLoginButton.Click += maLoginButton_Click;
             // 
             // kdLoginButton
             // 
@@ -92,6 +94,7 @@
             kdLoginButton.TabIndex = 0;
             kdLoginButton.Text = "Login Kunde";
             kdLoginButton.UseVisualStyleBackColor = false;
+            kdLoginButton.Click += kdLoginButton_Click;
             // 
             // Startseite
             // 
@@ -104,6 +107,7 @@
             Controls.Add(buttonGroupbox);
             Font = new Font("Cascadia Mono", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Name = "Startseite";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Dososta Bibliothek";
             buttonGroupbox.ResumeLayout(false);
             buttonGroupbox.PerformLayout();
