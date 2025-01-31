@@ -41,14 +41,14 @@ namespace DosostaApp
             while (reader.Read())
             {
                 // Beispiel: Daten in eine ListBox einfügen
-                listBoxAvailableBooks.Items.Add($"{reader["Id"]}: {reader["Title"]} : {reader["Genre"]} von {reader["Autor"]}");
+              //  listBoxAvailableBooks.Items.Add($"{reader["Id"]}: {reader["Title"]} : {reader["Genre"]} von {reader["Autor"]}");
             }
         
 
         }
         private void btnShowAvailableBooks_Click(object sender, EventArgs e)
         {
-            listBoxAvailableBooks.Items.Clear();
+           // listBoxAvailableBooks.Items.Clear();
             ZeigenVerfübareBücher();
         }
 

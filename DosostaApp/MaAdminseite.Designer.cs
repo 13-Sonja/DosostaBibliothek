@@ -29,18 +29,16 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
-            Benutzerverwaltungbutton = new Button();
-            Buchverwaltung_button = new Button();
-            Reservierungen_verwalten_button = new Button();
-            Beanachrichtigungen_senden_button = new Button();
             Ausleihen_verwalten_button = new Button();
-            Mitarbeiterverwaltung_button = new Button();
+            Beanachrichtigungen_senden_button = new Button();
+            Reservierungen_verwalten_button = new Button();
+            Buchverwaltung_button = new Button();
+            Benutzerverwaltungbutton = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(Mitarbeiterverwaltung_button);
             groupBox1.Controls.Add(Ausleihen_verwalten_button);
             groupBox1.Controls.Add(Beanachrichtigungen_senden_button);
             groupBox1.Controls.Add(Reservierungen_verwalten_button);
@@ -53,35 +51,15 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "groupBox1";
             // 
-            // Benutzerverwaltungbutton
+            // Ausleihen_verwalten_button
             // 
-            Benutzerverwaltungbutton.Location = new Point(6, 137);
-            Benutzerverwaltungbutton.Name = "Benutzerverwaltungbutton";
-            Benutzerverwaltungbutton.Size = new Size(222, 29);
-            Benutzerverwaltungbutton.TabIndex = 3;
-            Benutzerverwaltungbutton.Text = "Benutzerverwaltung";
-            Benutzerverwaltungbutton.UseVisualStyleBackColor = true;
-            Benutzerverwaltungbutton.Click += Benutzerverwaltungbutton_Click;
-            // 
-            // Buchverwaltung_button
-            // 
-            Buchverwaltung_button.Location = new Point(6, 205);
-            Buchverwaltung_button.Name = "Buchverwaltung_button";
-            Buchverwaltung_button.Size = new Size(222, 29);
-            Buchverwaltung_button.TabIndex = 4;
-            Buchverwaltung_button.Text = "Buchverwaltung";
-            Buchverwaltung_button.UseVisualStyleBackColor = true;
-            Buchverwaltung_button.Click += Buchverwaltung_button_Click;
-            // 
-            // Reservierungen_verwalten_button
-            // 
-            Reservierungen_verwalten_button.Location = new Point(6, 286);
-            Reservierungen_verwalten_button.Name = "Reservierungen_verwalten_button";
-            Reservierungen_verwalten_button.Size = new Size(281, 29);
-            Reservierungen_verwalten_button.TabIndex = 5;
-            Reservierungen_verwalten_button.Text = "Reservierungen verwalten";
-            Reservierungen_verwalten_button.UseVisualStyleBackColor = true;
-            Reservierungen_verwalten_button.Click += Reservierungen_verwalten_button_Click;
+            Ausleihen_verwalten_button.Location = new Point(381, 205);
+            Ausleihen_verwalten_button.Name = "Ausleihen_verwalten_button";
+            Ausleihen_verwalten_button.Size = new Size(228, 29);
+            Ausleihen_verwalten_button.TabIndex = 7;
+            Ausleihen_verwalten_button.Text = "Ausleihen verwalten";
+            Ausleihen_verwalten_button.UseVisualStyleBackColor = true;
+            Ausleihen_verwalten_button.Click += Ausleihen_verwalten_button_Click;
             // 
             // Beanachrichtigungen_senden_button
             // 
@@ -93,25 +71,35 @@
             Beanachrichtigungen_senden_button.UseVisualStyleBackColor = true;
             Beanachrichtigungen_senden_button.Click += Beanachrichtigungen_senden_button_Click;
             // 
-            // Ausleihen_verwalten_button
+            // Reservierungen_verwalten_button
             // 
-            Ausleihen_verwalten_button.Location = new Point(381, 205);
-            Ausleihen_verwalten_button.Name = "Ausleihen_verwalten_button";
-            Ausleihen_verwalten_button.Size = new Size(228, 29);
-            Ausleihen_verwalten_button.TabIndex = 7;
-            Ausleihen_verwalten_button.Text = "Ausleihen verwalten";
-            Ausleihen_verwalten_button.UseVisualStyleBackColor = true;
-            Ausleihen_verwalten_button.Click += Ausleihen_verwalten_button_Click;
+            Reservierungen_verwalten_button.Location = new Point(6, 286);
+            Reservierungen_verwalten_button.Name = "Reservierungen_verwalten_button";
+            Reservierungen_verwalten_button.Size = new Size(281, 29);
+            Reservierungen_verwalten_button.TabIndex = 5;
+            Reservierungen_verwalten_button.Text = "Reservierungen verwalten";
+            Reservierungen_verwalten_button.UseVisualStyleBackColor = true;
+            Reservierungen_verwalten_button.Click += Reservierungen_verwalten_button_Click;
             // 
-            // Mitarbeiterverwaltung_button
+            // Buchverwaltung_button
             // 
-            Mitarbeiterverwaltung_button.Location = new Point(381, 286);
-            Mitarbeiterverwaltung_button.Name = "Mitarbeiterverwaltung_button";
-            Mitarbeiterverwaltung_button.Size = new Size(228, 29);
-            Mitarbeiterverwaltung_button.TabIndex = 8;
-            Mitarbeiterverwaltung_button.Text = "Mitarbeiterverwaltung";
-            Mitarbeiterverwaltung_button.UseVisualStyleBackColor = true;
-            Mitarbeiterverwaltung_button.Click += Mitarbeiterverwaltung_button_Click;
+            Buchverwaltung_button.Location = new Point(6, 205);
+            Buchverwaltung_button.Name = "Buchverwaltung_button";
+            Buchverwaltung_button.Size = new Size(222, 29);
+            Buchverwaltung_button.TabIndex = 4;
+            Buchverwaltung_button.Text = "Buchverwaltung";
+            Buchverwaltung_button.UseVisualStyleBackColor = true;
+            Buchverwaltung_button.Click += Buchverwaltung_button_Click;
+            // 
+            // Benutzerverwaltungbutton
+            // 
+            Benutzerverwaltungbutton.Location = new Point(6, 137);
+            Benutzerverwaltungbutton.Name = "Benutzerverwaltungbutton";
+            Benutzerverwaltungbutton.Size = new Size(222, 29);
+            Benutzerverwaltungbutton.TabIndex = 3;
+            Benutzerverwaltungbutton.Text = "Benutzerverwaltung";
+            Benutzerverwaltungbutton.UseVisualStyleBackColor = true;
+            Benutzerverwaltungbutton.Click += Benutzerverwaltungbutton_Click;
             // 
             // MaAdminseite
             // 
@@ -136,6 +124,5 @@
         private Button Ausleihen_verwalten_button;
         private Button Beanachrichtigungen_senden_button;
         private Button Reservierungen_verwalten_button;
-        private Button Mitarbeiterverwaltung_button;
     }
 }

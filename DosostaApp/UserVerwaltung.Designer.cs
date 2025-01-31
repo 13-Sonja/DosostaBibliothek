@@ -35,20 +35,25 @@
             Edit_User = new Button();
             User_verwaltung_button = new Button();
             groupBox1 = new GroupBox();
-            erneuen_button = new Button();
-            erstellen_button = new Button();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            Ändern_button = new Button();
+            Clear_button = new Button();
+            label5 = new Label();
+            label4 = new Label();
+            label3 = new Label();
+            label2 = new Label();
+            label1 = new Label();
             statut_comboBox = new ComboBox();
-            nachname_textBox = new TextBox();
+            vorname = new TextBox();
             Passwort_textBox = new TextBox();
             Email_textBox1 = new TextBox();
-            vorname = new TextBox();
-            Passwort_label = new Label();
-            Statut_label = new Label();
-            Email_Label = new Label();
-            Name_label = new Label();
-            Vorname_label = new Label();
+            nachname_textBox = new TextBox();
+            tabPage2 = new TabPage();
             panel1.SuspendLayout();
             groupBox1.SuspendLayout();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -102,149 +107,175 @@
             User_verwaltung_button.TabIndex = 0;
             User_verwaltung_button.Text = "Userverwaltung";
             User_verwaltung_button.UseVisualStyleBackColor = true;
-            User_verwaltung_button.Click += User_verwaltung_button_Click;
+            User_verwaltung_button.Click += User_verwaltung_button_Click_1;
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(erneuen_button);
-            groupBox1.Controls.Add(erstellen_button);
-            groupBox1.Controls.Add(statut_comboBox);
-            groupBox1.Controls.Add(nachname_textBox);
-            groupBox1.Controls.Add(Passwort_textBox);
-            groupBox1.Controls.Add(Email_textBox1);
-            groupBox1.Controls.Add(vorname);
-            groupBox1.Controls.Add(Passwort_label);
-            groupBox1.Controls.Add(Statut_label);
-            groupBox1.Controls.Add(Email_Label);
-            groupBox1.Controls.Add(Name_label);
-            groupBox1.Controls.Add(Vorname_label);
-            groupBox1.Font = new Font("Cascadia Mono SemiBold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox1.Location = new Point(285, 12);
+            groupBox1.Controls.Add(tabControl1);
+            groupBox1.Location = new Point(289, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(554, 525);
+            groupBox1.Size = new Size(733, 525);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
-            groupBox1.Text = "Informationen der neue User eingeben";
+            groupBox1.Text = "groupBox1";
             // 
-            // erneuen_button
+            // tabControl1
             // 
-            erneuen_button.BackColor = Color.Red;
-            erneuen_button.Location = new Point(383, 449);
-            erneuen_button.Name = "erneuen_button";
-            erneuen_button.Size = new Size(151, 48);
-            erneuen_button.TabIndex = 15;
-            erneuen_button.Text = "erneuen";
-            erneuen_button.UseVisualStyleBackColor = false;
-            
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Location = new Point(27, 142);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(700, 345);
+            tabControl1.TabIndex = 0;
             // 
-            // erstellen_button
+            // tabPage1
             // 
-            erstellen_button.BackColor = Color.Aquamarine;
-            erstellen_button.Location = new Point(108, 449);
-            erstellen_button.Name = "erstellen_button";
-            erstellen_button.Size = new Size(137, 48);
-            erstellen_button.TabIndex = 14;
-            erstellen_button.Text = "erstellen";
-            erstellen_button.UseVisualStyleBackColor = false;
-            erstellen_button.Click += erstellen_button_Click;
+            tabPage1.Controls.Add(Ändern_button);
+            tabPage1.Controls.Add(Clear_button);
+            tabPage1.Controls.Add(label5);
+            tabPage1.Controls.Add(label4);
+            tabPage1.Controls.Add(label3);
+            tabPage1.Controls.Add(label2);
+            tabPage1.Controls.Add(label1);
+            tabPage1.Controls.Add(statut_comboBox);
+            tabPage1.Controls.Add(vorname);
+            tabPage1.Controls.Add(Passwort_textBox);
+            tabPage1.Controls.Add(Email_textBox1);
+            tabPage1.Controls.Add(nachname_textBox);
+            tabPage1.Location = new Point(4, 29);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(692, 312);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Hinzufügen";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // Ändern_button
+            // 
+            Ändern_button.Location = new Point(363, 247);
+            Ändern_button.Name = "Ändern_button";
+            Ändern_button.Size = new Size(94, 29);
+            Ändern_button.TabIndex = 12;
+            Ändern_button.Text = "Hinfügen";
+            Ändern_button.UseVisualStyleBackColor = true;
+            Ändern_button.Click += Ändern_button_Click;
+            // 
+            // Clear_button
+            // 
+            Clear_button.Location = new Point(501, 246);
+            Clear_button.Name = "Clear_button";
+            Clear_button.Size = new Size(94, 29);
+            Clear_button.TabIndex = 11;
+            Clear_button.Text = "Clear";
+            Clear_button.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(321, 153);
+            label5.Name = "label5";
+            label5.Size = new Size(49, 20);
+            label5.TabIndex = 9;
+            label5.Text = "Status";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(335, 76);
+            label4.Name = "label4";
+            label4.Size = new Size(68, 20);
+            label4.TabIndex = 8;
+            label4.Text = "Vorname";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(6, 255);
+            label3.Name = "label3";
+            label3.Size = new Size(66, 20);
+            label3.TabIndex = 7;
+            label3.Text = "Passwort";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(6, 172);
+            label2.Name = "label2";
+            label2.Size = new Size(46, 20);
+            label2.TabIndex = 6;
+            label2.Text = "Email";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(6, 77);
+            label1.Name = "label1";
+            label1.Size = new Size(49, 20);
+            label1.TabIndex = 5;
+            label1.Text = "Name";
             // 
             // statut_comboBox
             // 
             statut_comboBox.FormattingEnabled = true;
             statut_comboBox.Items.AddRange(new object[] { "Kunde", "Mitarbeiter", "Admin" });
-            statut_comboBox.Location = new Point(383, 240);
+            statut_comboBox.Location = new Point(394, 150);
             statut_comboBox.Name = "statut_comboBox";
-            statut_comboBox.Size = new Size(151, 35);
-            statut_comboBox.TabIndex = 13;
-            // 
-            // nachname_textBox
-            // 
-            nachname_textBox.Location = new Point(383, 159);
-            nachname_textBox.Name = "nachname_textBox";
-            nachname_textBox.Size = new Size(125, 31);
-            nachname_textBox.TabIndex = 12;
-            // 
-            // Passwort_textBox
-            // 
-            Passwort_textBox.Location = new Point(131, 335);
-            Passwort_textBox.Name = "Passwort_textBox";
-            Passwort_textBox.Size = new Size(125, 31);
-            Passwort_textBox.TabIndex = 11;
-            Passwort_textBox.TextChanged += Passwort_textBox_TextChanged;
-            // 
-            // Email_textBox1
-            // 
-            Email_textBox1.Location = new Point(108, 240);
-            Email_textBox1.Name = "Email_textBox1";
-            Email_textBox1.Size = new Size(125, 31);
-            Email_textBox1.TabIndex = 10;
-            Email_textBox1.TextChanged += Email_textBox1_TextChanged;
+            statut_comboBox.Size = new Size(151, 28);
+            statut_comboBox.TabIndex = 4;
             // 
             // vorname
             // 
-            vorname.Location = new Point(108, 158);
+            vorname.Location = new Point(420, 70);
             vorname.Name = "vorname";
-            vorname.Size = new Size(125, 31);
-            vorname.TabIndex = 5;
+            vorname.Size = new Size(125, 27);
+            vorname.TabIndex = 3;
             // 
-            // Passwort_label
+            // Passwort_textBox
             // 
-            Passwort_label.AutoSize = true;
-            Passwort_label.Location = new Point(6, 338);
-            Passwort_label.Name = "Passwort_label";
-            Passwort_label.Size = new Size(108, 27);
-            Passwort_label.TabIndex = 4;
-            Passwort_label.Text = "Passwort";
+            Passwort_textBox.Location = new Point(78, 248);
+            Passwort_textBox.Name = "Passwort_textBox";
+            Passwort_textBox.Size = new Size(125, 27);
+            Passwort_textBox.TabIndex = 2;
             // 
-            // Statut_label
+            // Email_textBox1
             // 
-            Statut_label.AutoSize = true;
-            Statut_label.Location = new Point(279, 240);
-            Statut_label.Name = "Statut_label";
-            Statut_label.Size = new Size(84, 27);
-            Statut_label.TabIndex = 3;
-            Statut_label.Text = "Statut";
+            Email_textBox1.Location = new Point(76, 165);
+            Email_textBox1.Name = "Email_textBox1";
+            Email_textBox1.Size = new Size(125, 27);
+            Email_textBox1.TabIndex = 1;
             // 
-            // Email_Label
+            // nachname_textBox
             // 
-            Email_Label.AutoSize = true;
-            Email_Label.Location = new Point(6, 239);
-            Email_Label.Name = "Email_Label";
-            Email_Label.Size = new Size(72, 27);
-            Email_Label.TabIndex = 2;
-            Email_Label.Text = "Email";
+            nachname_textBox.Location = new Point(76, 73);
+            nachname_textBox.Name = "nachname_textBox";
+            nachname_textBox.Size = new Size(125, 27);
+            nachname_textBox.TabIndex = 0;
             // 
-            // Name_label
+            // tabPage2
             // 
-            Name_label.AutoSize = true;
-            Name_label.Location = new Point(269, 162);
-            Name_label.Name = "Name_label";
-            Name_label.Size = new Size(108, 27);
-            Name_label.TabIndex = 1;
-            Name_label.Text = "Nachname";
-            // 
-            // Vorname_label
-            // 
-            Vorname_label.AutoSize = true;
-            Vorname_label.Location = new Point(6, 162);
-            Vorname_label.Name = "Vorname_label";
-            Vorname_label.Size = new Size(96, 27);
-            Vorname_label.TabIndex = 0;
-            Vorname_label.Text = "Vorname";
+            tabPage2.Location = new Point(4, 29);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(692, 312);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "tabPage2";
+            tabPage2.UseVisualStyleBackColor = true;
             // 
             // UserVerwaltung
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(872, 549);
+            ClientSize = new Size(1034, 549);
             Controls.Add(groupBox1);
             Controls.Add(panel1);
             Name = "UserVerwaltung";
             Text = "UserVerwaltung";
-            Load += UserVerwaltung_Load;
             panel1.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -256,17 +287,21 @@
         private Button Löschen_button;
         private Button Alle_User_Sehen;
         private GroupBox groupBox1;
-        private Label Vorname_label;
-        private Label Statut_label;
-        private Label Email_Label;
-        private Label Name_label;
-        private Label Passwort_label;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
         private TextBox vorname;
         private TextBox Passwort_textBox;
         private TextBox Email_textBox1;
-        private ComboBox statut_comboBox;
         private TextBox nachname_textBox;
-        private Button erstellen_button;
-        private Button erneuen_button;
+        private Label label5;
+        private Label label4;
+        private Label label3;
+        private Label label2;
+        private Label label1;
+        private ComboBox statut_comboBox;
+        private Button Clear_button;
+        private Button Ändern_button;
+       
     }
 }

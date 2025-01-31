@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using DosostaApp;
 namespace DosostaApp
 
 {
@@ -18,8 +18,11 @@ namespace DosostaApp
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            new Startseite().Show();
-            Application.Run();
+
+          //var userverwaltung = new UserVerwaltung();
+           //new Userverwaltung.Show();
+            new Buchverwaltung().Show();
+            Application.Run(new UserVerwaltung());
         }
     }
 }
