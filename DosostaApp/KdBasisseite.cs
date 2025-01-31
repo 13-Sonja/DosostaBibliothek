@@ -14,8 +14,15 @@ using DosostaApp.DosostaDB;
 
 namespace DosostaApp
 {
+    /// <summary>
+    /// Die Hauptform der Kunden-Basis-Seite, die die grundlegenden Funktionen für den Benutzer bereitstellt.
+    /// </summary>
     public partial class KdBasisseite : Form
     {
+
+        /// <summary>
+        /// Initialisiert die Komponenten und setzt die grundlegenden Eigenschaften der Form.
+        /// </summary>
         Datenbank dosostaDB = new();
         public KdBasisseite()
         {
@@ -38,14 +45,58 @@ namespace DosostaApp
             public static string email { get; set; }
 
         }
+        /// <summary>
+        /// Handler für den Klick auf den Profil-Button. 
+        /// Diese Methode setzt den Inhalt des Basis-Groupboxes zurück und zeigt dann die Profilinformationen an.
+        /// </summary>
+        /// <param name="sender">Das Objekt, das das Ereignis ausgelöst hat. In diesem Fall der Profil-Button.</param>
+        /// <param name="e">Die Event-Argumente, die Informationen über das Ereignis enthalten.</param>
         private void ProfilButton_click(object sender, EventArgs e)
         {
             basisGroupbox.Controls.Clear();
             basisGroupbox.Text = "Ihre Informationen";
             Profilinformation();
         }
+        /// <summary>
+        /// Lädt und zeigt die Profilinformationen des aktuell eingeloggten Benutzers.
+        /// </summary>
         private void Profilinformation()
         {
+            /// <summary>
+            /// Überprüft, ob ein Benutzer eingeloggt ist. Falls nicht, wird eine Fehlermeldung ausgegeben.
+            /// </summary>
+
+            /// <summary>
+            /// Löscht alle vorhandenen Steuerelemente in der GroupBox und setzt den Titel auf "Profilinformationen".
+            /// </summary>
+
+            /// <summary>
+            /// SQL-Abfrage, um Benutzerdaten anhand der UserID aus der Datenbank abzurufen.
+            /// </summary>
+
+            /// <summary>
+            /// Erstellt eine neue Verbindung zur Datenbank und führt die Abfrage aus.
+            /// </summary>
+
+            /// <summary>
+            /// Falls ein Benutzer gefunden wurde, werden die Profilinformationen aus der Datenbank ausgelesen.
+            /// </summary>
+
+            /// <summary>
+            /// Dynamische Methode zur Erstellung von Labels und "Ändern?"-Buttons für editierbare Felder.
+            /// </summary>
+
+            /// <summary>
+            /// Zeigt die Profilinformationen für Vorname, Nachname, Passwort, E-Mail und Geburtsdatum an.
+            /// </summary>
+
+            /// <summary>
+            /// Falls keine Benutzerdaten gefunden wurden, wird eine Fehlermeldung angezeigt.
+            /// </summary>
+
+            /// <summary>
+            /// Stellt sicher, dass die Datenbankverbindung in jedem Fall geschlossen wird.
+            /// </summary>
             string vorname = "";
             string nachname = "";
             string passwort = "";
@@ -178,6 +229,11 @@ namespace DosostaApp
                 }
             }
         }
+        /// <summary>
+        /// Aktualisiert ein bestimmtes Profilfeld des aktuell eingeloggten Benutzers.
+        /// Die Änderungen erfolgen anhand der UserID statt der E-Mail-Adresse, um Inkonsistenzen zu vermeiden.
+        /// </summary>
+        /// <param name="field">Das zu aktualisierende Feld in der Datenbank.</param>
         private void EditProfileField(string field, string loggedInEmail)
         {
             string newValue = Microsoft.VisualBasic.Interaction.InputBox("Bitte geben Sie den neuen Wert für " + field + " ein:", "Profil bearbeiten", "");
@@ -215,12 +271,22 @@ namespace DosostaApp
                 }
             }
         }
+        /// <summary>
+        /// Event-Handler für das Klicken des "Meine Bücher"-Buttons.
+        /// Löscht die aktuellen Steuerelemente in der GroupBox und zeigt die vom Benutzer ausgeliehenen Bücher an.
+        /// </summary>
+        /// <param name="sender">Das Steuerelement, das das Ereignis ausgelöst hat.</param>
+        /// <param name="e">Die Ereignisdaten.</param>
         private void MeineBücherButton_click(object sender, EventArgs e)
         {
             basisGroupbox.Controls.Clear();
             basisGroupbox.Text = "Ihre ausgeliehenen Bücher";
             MeineBücher_Bücher();
         }
+        /// <summary>
+        /// Ruft die vom aktuell angemeldeten Benutzer ausgeliehenen Bücher aus der Datenbank ab
+        /// und zeigt sie in einer ListBox innerhalb der GroupBox an.
+        /// </summary>
         private void MeineBücher_Bücher()
         {
             int UserID = Benutzersession.UserID;
@@ -290,12 +356,23 @@ namespace DosostaApp
                 }
             }
         }
+        /// <summary>
+        /// Event-Handler für das Klicken des "Buch ausleihen"-Buttons.
+        /// Bereitet die Benutzeroberfläche für die Buchausleihe vor, indem die vorhandenen Elemente
+        /// in der GroupBox entfernt und die Suchfunktion für Bücher aufgerufen wird.
+        /// </summary>
+        /// <param name="sender">Das Steuerelement, das das Ereignis ausgelöst hat.</param>
+        /// <param name="e">Die Ereignisdaten.</param>
         private void BuchAusleihenButton_click(object sender, EventArgs e)
         {
             basisGroupbox.Controls.Clear();
             basisGroupbox.Text = "Ausleihe";
             BücherSuchen();
         }
+        /// <summary>
+        /// Erstellt die Benutzeroberfläche für die Büchersuche und fügt sie zur GroupBox hinzu.
+        /// Die Suchfelder (Autor, Titel, Genre) sowie die Such- und Bestätigungsbuttons werden dynamisch generiert.
+        /// </summary>
         private void BücherSuchen()
         {
             int yOffset = 30;
@@ -343,6 +420,11 @@ namespace DosostaApp
 
             btnLeiheBestätigen.Click += (sender, e) => AusleiheBestätigenButton_click(sender, e, listBoxErgebnisse);
         }
+        /// <summary>
+        /// Sucht Bücher basierend auf den eingegebenen Suchkriterien und zeigt die Ergebnisse in einer ListBox an.
+        /// </summary>
+        /// <param name="sender">Das auslösende Objekt.</param>
+        /// <param name="e">Die Event-Argumente.</param>
         private void BücherSuchenButton_Click(object sender, EventArgs e)
         {
             string autor = ((TextBox)basisGroupbox.Controls["txtAutor"]).Text.Trim();
@@ -408,6 +490,11 @@ namespace DosostaApp
 
             }
         }
+        /// <summary>
+        /// Sucht Bücher basierend auf den eingegebenen Suchkriterien und zeigt die Ergebnisse in einer ListBox an.
+        /// </summary>
+        /// <param name="sender">Das auslösende Objekt.</param>
+        /// <param name="e">Die Event-Argumente.</param>
         private void BücherleiheButton_click(object sender, EventArgs e)
         {
             string autor = ((TextBox)basisGroupbox.Controls["txtAutor"]).Text.Trim();
@@ -497,6 +584,12 @@ namespace DosostaApp
                 basisGroupbox.Controls.Add(btnBestätigenUndAusleihen);
             }
         }
+        /// <summary>
+        /// Bestätigt die Ausleihe eines ausgewählten Buches und trägt es in die Datenbank ein.
+        /// </summary>
+        /// <param name="sender">Das auslösende Objekt.</param>
+        /// <param name="e">Die Event-Argumente.</param>
+        /// <param name="listBoxErgebnisse">Die ListBox mit den Suchergebnissen.</param>
         private void AusleiheBestätigenButton_click(object sender, EventArgs e, ListBox listBoxErgebnisse)
         {
             if (listBoxErgebnisse.SelectedItem == null)
@@ -585,7 +678,6 @@ namespace DosostaApp
             {
                 MessageBox.Show("Das Buch ist derzeit nicht verfügbar.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
         }
     }
 }
