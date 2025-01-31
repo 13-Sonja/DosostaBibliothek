@@ -6,6 +6,7 @@ using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DosostaApp.DosostaDB;
@@ -47,8 +48,9 @@ namespace DosostaApp
         {
             string vorname = "";
             string nachname = "";
-            string email = "";
-            string query = "SELECT vorname, nachname, email FROM User WHERE email = @email";
+            string passwort = "";
+            string gebdatum = "";
+            string query = "SELECT vorname, nachname, passwort, geburtsdatum  FROM User WHERE email = @email";
 
             using (SQLiteConnection connection = dosostaDB.ConnectDB())
             {
@@ -67,70 +69,98 @@ namespace DosostaApp
                             {
                                 control.Dispose();
                             }
+                            if (control is Button)
+                            {
+                                control.Dispose();
+                            }
                         }
                         vorname = reader["vorname"].ToString();
                         nachname = reader["nachname"].ToString();
-                        email = reader["email"].ToString();
-                        int yOffset = 30;
+                        passwort = reader["passwort"].ToString();
+                        gebdatum = reader["geburtsdatum"].ToString();
+
+                        int yOffset = 60;
 
                         Label lblVorname = new Label
                         {
-                            Text = "Vorname: " + vorname,
-                            Location = new Point(10, yOffset),
-                            Size = new Size(120, 25)
+                            Text = $"Vorname: {vorname}",
+                            Font = Font = new Font("Cascadia Mono", 14F),
+                            Location = new Point(110, yOffset),
                         };
+                        lblVorname.AutoSize = true;
+
                         basisGroupbox.Controls.Add(lblVorname);
                         yOffset += 40;
 
                         Label lblNachname = new Label
                         {
-                            Text = "Nachname: " + nachname,
-                            Location = new Point(20, yOffset),
-                            Size = new Size(220, 25)
+                            Text = $"Nachname: {nachname}",
+                            Font = Font = new Font("Cascadia Mono", 14F),
+                            Location = new Point(110, yOffset),
                         };
+                        lblNachname.AutoSize = true;
+                        Button btnNachname = new Button
+                        {
+                            Text = "Ändern?",
+                            Font = Font = new Font("Cascadia Mono", 12F),
+                            BackColor = Color.FromArgb(143, 148, 171),
+                            Location = new Point(20, yOffset),
+                            Size = new Size(90, 40)
+                        };
+                        btnNachname.Click += (sender, e) => EditProfileField("Nachname", Benutzersession.email);
                         basisGroupbox.Controls.Add(lblNachname);
+                        basisGroupbox.Controls.Add(btnNachname);
+                        yOffset += 40;
+
+                        Label lblPasswort = new Label
+                        {
+                            Text = $"Passwort: {passwort}",
+                            Font = Font = new Font("Cascadia Mono", 14F),
+                            Location = new Point(110, yOffset),
+                        };
+                        lblPasswort.AutoSize = true;
+                        Button btnPasswort = new Button
+                        {
+                            Text = "Ändern?",
+                            Font = Font = new Font("Cascadia Mono", 12F),
+                            BackColor = Color.FromArgb(143, 148, 171),
+                            Location = new Point(20, yOffset),
+                            Size = new Size(90, 40)
+                        };
+                        btnPasswort.Click += (sender, e) => EditProfileField("Passwort", Benutzersession.email);
+                        basisGroupbox.Controls.Add(lblPasswort);
+                        basisGroupbox.Controls.Add(btnPasswort);
                         yOffset += 40;
 
                         Label lblEmail = new Label
                         {
-                            Text = "E-Mail: " + email,
+                            Text = $"E-Mail: {Benutzersession.email}",
+                            Font = Font = new Font("Cascadia Mono", 14F),
+                            Location = new Point(110, yOffset),
+                        };
+                        lblEmail.AutoSize = true;
+                        Button btnEmail = new Button
+                        {
+                            Text = "Ändern?",
+                            Font = Font = new Font("Cascadia Mono", 12F),
+                            BackColor = Color.FromArgb(143, 148, 171),
                             Location = new Point(20, yOffset),
-                            Size = new Size(320, 25)
+                            Size = new Size(90, 40)
                         };
+                        btnEmail.Click += (sender, e) => EditProfileField("Email", Benutzersession.email);
+
                         basisGroupbox.Controls.Add(lblEmail);
+                        basisGroupbox.Controls.Add(btnEmail);
                         yOffset += 40;
 
-                        Button btnVorname = new Button
+                        Label lblGebdatum = new Label
                         {
-                            Text = "Ändern?",
-                            Location = new Point(240, 30),
-                            Size = new Size(80, 25)
+                            Text = $"Geburtsdatum: {gebdatum}",
+                            Font = Font = new Font("Cascadia Mono", 14F),
+                            Location = new Point(110, yOffset),
                         };
-                        btnVorname.Click += (sender, e) => EditProfileField("Vorname", Benutzersession.email);
-                        yOffset += 40;
-
-                        Button btnNachname = new Button
-                        {
-                            Text = "Ändern?",
-                            Location = new Point(240, 70),
-                            Size = new Size(80, 25)
-                        };
-                        btnNachname.Click += (sender, e) => EditProfileField("Nachname", Benutzersession.email);
-                        yOffset += 40;
-
-                        Button btnPasswort = new Button
-                        {
-                            Text = "Ändern?",
-                            Location = new Point(240, 110),
-                            Size = new Size(80, 25)
-                        };
-                        btnPasswort.Click += (sender, e) => EditProfileField("Passwort", Benutzersession.email);
-                        //basisGroupbox.Controls.Add(lblVorname);
-                        //basisGroupbox.Controls.Add(lblNachname);
-                        //basisGroupbox.Controls.Add(lblEmail);
-                        basisGroupbox.Controls.Add(btnVorname);
-                        basisGroupbox.Controls.Add(btnNachname);
-                        basisGroupbox.Controls.Add(btnPasswort);
+                        lblGebdatum.AutoSize = true;
+                        basisGroupbox.Controls.Add(lblGebdatum);
                     }
                     else
                     {
@@ -152,11 +182,7 @@ namespace DosostaApp
         {
             string newValue = Microsoft.VisualBasic.Interaction.InputBox("Bitte geben Sie den neuen Wert für " + field + " ein:", "Profil bearbeiten", "");
 
-            if (field != "Vorname" && field != "Nachname" && field != "Email")
-            {
-                throw new ArgumentException("Ungültiges Feld");
-            }
-
+            //kann nicht funktionieren, wenn man die email ändert, alle Änderungen sollten über UserID erfolgen
             string query = $"UPDATE User SET {field} = @newValue WHERE email = @email";
 
             using (SQLiteConnection connection = dosostaDB.ConnectDB())
@@ -198,7 +224,7 @@ namespace DosostaApp
         private void MeineBücher_Bücher()
         {
             int UserID = Benutzersession.UserID;
-            string query = "SELECT b.Titel, b.Autor, v.Verleihdatum, v.Rückgabedatum FROM Verleih v JOIN Buecher b ON v.BuchID = b.BuchID WHERE v.UserID = @UserID AND v.Status = 'ausgeliehen'";
+            string query = "SELECT b.Titel, b.Autor, v.Verleihdatum, v.Rückgabedatum FROM Verleih v JOIN Buecher b ON v.BuchID = b.BuchID WHERE v.UserID = @UserID AND v.Status = 'verliehen'";
 
             using (SQLiteConnection connection = dosostaDB.ConnectDB())
             {
@@ -244,10 +270,12 @@ namespace DosostaApp
                         {
                             statusText = "Rückgabe in " + tageBisRückgabe + " Tagen";
                         }
-                        string buchInfo = $"Titel: {titel}, Autor: {autor}, " +
-                                          $"Verliehen am: {verleihdatum:dd.MM.yyyy}, " +
-                                          $"Rückgabe: {rückgabedatum:dd.MM.yyyy} {statusText}";
-                        Bücherliste.Items.Add(buchInfo);
+                        string buchInfo = $"Titel: {titel}, Autor: {autor},\n" +
+                                          $"Verliehen am: {verleihdatum:dd.MM.yyyy},\n" +
+                                          $"Rückgabe: {rückgabedatum:dd.MM.yyyy}, {statusText}";
+                        foreach (string s in Regex.Split(buchInfo, "\n"))
+                            Bücherliste.Items.Add(s);
+                        Bücherliste.Items.Add("\n");
                     }
 
                     reader.Close();

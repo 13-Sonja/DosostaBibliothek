@@ -97,7 +97,6 @@
             // KdBasisseite
             // 
             AutoScaleDimensions = new SizeF(8F, 17F);
-            AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 244, 233);
             BackgroundImage = Properties.Resources.bg4;
             BackgroundImageLayout = ImageLayout.Stretch;

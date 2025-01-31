@@ -77,7 +77,7 @@ namespace DosostaApp.DosostaDB
         public (bool, string, int, string) CheckLogin(string vorname, string nachname, string passwort)
         {
             bool loginSuccessful = false;
-            int id = 0;
+            int id = -1;
             string status = "";
             string email = "";
 
@@ -101,11 +101,12 @@ namespace DosostaApp.DosostaDB
                             loginSuccessful = true;
                             //MessageBox.Show($"{email}");
                         }
-                            else
+                        else
                             {
                                 MessageBox.Show("Benutzerdaten konnten nicht gefunden werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
-                         }
+                        reader.Close();
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -124,7 +125,7 @@ namespace DosostaApp.DosostaDB
             try
             { 
                 connection.Open();
-                string query = "INSERT INTO User (vorname, nachname, email, passwort, status) VALUES (@vorname, @nachname, @email, @passwort, @status);";
+                string query = "INSERT INTO User (vorname, nachname, email, passwort, status, geburtsdatum) VALUES (@vorname, @nachname, @email, @passwort, @status, @geburtsdatum);";
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@vorname", vorname);
@@ -132,6 +133,7 @@ namespace DosostaApp.DosostaDB
                     command.Parameters.AddWithValue("@email", email);
                     command.Parameters.AddWithValue("@passwort", passwort);
                     command.Parameters.AddWithValue("@status", "Kunde");
+                    command.Parameters.AddWithValue("@geburtsdatum", geburtsdatum);
 
                     command.ExecuteNonQuery();
                 }
