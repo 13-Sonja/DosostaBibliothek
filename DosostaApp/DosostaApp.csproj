@@ -24,9 +24,6 @@
     <Compile Update="Registrierungsseite.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="MaBasisseite.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="MaAdminseite.cs">
       <SubType>Form</SubType>
     </Compile>
