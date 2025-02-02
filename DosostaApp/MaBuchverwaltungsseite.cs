@@ -221,5 +221,15 @@ namespace DosostaApp
         {
             Close();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab(Verleihen_tabPage1);
+        }
+
+        private void buchHinzufügenButton_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab(Buch_Hinzufügen_tabPage1);
+        }
     }
 }
