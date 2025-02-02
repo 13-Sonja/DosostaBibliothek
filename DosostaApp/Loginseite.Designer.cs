@@ -169,7 +169,7 @@
             BackColor = Color.FromArgb(255, 252, 249);
             BackgroundImage = Properties.Resources.bg4;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(914, 510);
+            ClientSize = new Size(968, 510);
             Controls.Add(loginBasisGroupbox);
             Font = new Font("Cascadia Mono", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Name = "Loginseite";
